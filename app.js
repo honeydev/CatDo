@@ -7,9 +7,9 @@ Vue.component('toinput', {
     template: `
         <div class="input-group" v-on:keyup.enter="addTask">
             <div class="input-group-prepend">
-                <span class="input-group-text">Add</span>
+                <span class="input-group-text">Push Enter</span>
               </div>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+              <input type="text" class="form-control" placeholder="Task Text" aria-label="Task text" aria-describedby="basic-addon1">
         </div>
     `,
     methods: {
