@@ -14,20 +14,20 @@ class TaskService {
      */
     getTasks(cursor = 0) {
         let tasks = this._db.queryAll("tasks");
-        tasks = tasks.sort((a, b) => {
-            return Number(a.created_time) < Number(b.created_time);
+        tasks.sort((a, b) => {
+            return (a.created_time < b.created_time) ? 1 : -1;
         });
-        tasks = this._setTasksVisible(tasks, cursor, cursor + 3);
+        const startPosition = cursor * 8;
+        tasks = this._setTasksVisible(tasks, startPosition, startPosition + 8);
         return tasks;
     }
 
     _setTasksVisible(tasks, start, end) {
-        let counter = start;
-        return tasks.map((task) => {
-            (counter >= start && counter <= end) ? task.visible = true : task.visible = false;
-            counter++;
-            return task;
-        });
+        
+        for (let i = 0; i < tasks.length; i++) {
+            (i >= start && i < end) ? tasks[i].visible = true : tasks[i].visible = false;
+        }
+        return tasks;
     }
     /**
      * @param {[string]} taskText
@@ -44,11 +44,16 @@ class TaskService {
     }
 
     switchCompleted(taskId) {
-        const currentValue = this._db.queryAll("tasks", { query: (task) => task.ID === taskId })[0].completed;
+        const task = this._db.queryAll("tasks", { query: (task) => task.ID === taskId })[0];
+        if (task === undefined) {
+            return null;
+        }
+        const currentValue = task.completed;
         this._db.update("tasks", {ID: taskId}, (task) => {
             task.completed = !currentValue;
             return task;
         });
+        this._db.commit();
     }
 }
 

@@ -13,12 +13,12 @@ class PaginationService {
     getPagesNumbers() {
         let pages = [];
         const tasksLength = this._db.queryAll("tasks").length;
-        console.log(tasksLength);
+        let counterPage = 1;
 
-        for (let i = 0; i < tasksLength; i++) {
-            pages.push(i);
+        for (let i = 0; i < tasksLength; i += 8) {
+            pages.push({val: counterPage});
+            counterPage++;
         }
-
         return pages;
     }
 }

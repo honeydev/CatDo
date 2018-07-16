@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html>
   <head>
+    <title>CatDo</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>test</title>
+    <link rel="icon" href="data/cat.png">
     <style>
         .container {
             padding-top: 40px;
@@ -20,16 +22,31 @@
         nav {
             padding-top: 20px;
         }
+
+        .logo {
+          width: 15%;
+          padding-bottom: 20px;
+        }
     </style>
     </head>
     <body>
         <div id="root" class="container">
-            <h2>To Do list</h2>
-            <toinput></toinput>
-            <tasks></tasks>
-            <pagination></pagination>
+            <div class="row">
+                <div class="offset-md-1 col-10">
+                    <div class="offset-md-5">
+                      <img class="logo" src="data/cat.png" class="img-thumbnail" width="">
+                    </div>
+                    <toinput></toinput>
+                    <tasks></tasks>
+                    <pagination></pagination>
+                </div>
+            </div>
         </div>
-
     <script src="dist/bundle.js"></script>
+    <script>
+      // You can also require other files to run in this process
+      require('./renderer.js')
+    </script>
     </body>
 </html>
+
